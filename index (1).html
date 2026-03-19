@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maafin Aku Ya 🥺</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: url('https://i.imgur.com/qSoOfaJ.jpg') no-repeat center center/cover;
+    overflow: hidden;
+}
+
+/* Overlay biar tulisan keliatan */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Box utama */
+.box {
+    border: 5px solid yellow;
+    border-radius: 20px;
+    padding: 20px;
+    background: white;
+    max-width: 90%;
+}
+
+/* RGB border animasi */
+.box {
+    animation: rgbBorder 3s infinite linear;
+}
+
+@keyframes rgbBorder {
+    0% { border-color: red; }
+    25% { border-color: yellow; }
+    50% { border-color: lime; }
+    75% { border-color: cyan; }
+    100% { border-color: red; }
+}
+
+h2, p {
+    color: black;
+}
+
+/* tombol */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.yes {
+    background: lime;
+}
+
+.no {
+    background: red;
+    color: white;
+}
+
+/* ketupat jatuh */
+.ketupat {
+    position: absolute;
+    top: -50px;
+    width: 40px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+    <div class="box">
+        <h2 id="text">
+            Mohon maaf lahir dan batin.<br>
+            Maafin aku ya kalo ada salah sama kamu,<br>
+            di maafin kan? Ya kan? Ya kan?
+        </h2>
+
+        <button class="yes" onclick="maafin()">Iya, dimaafin 😌</button>
+        <button class="no" id="noBtn" onclick="gakMaafin()">Enggak 😒</button>
+    </div>
+</div>
+
+<!-- Musik -->
+<audio id="lagu" autoplay loop>
+    <source src="https://docs.google.com/uc?export=download&id=1f9_dummy_link" type="audio/mp3">
+</audio>
+
+<script>
+let noClick = 0;
+let teks = document.getElementById("text");
+let noBtn = document.getElementById("noBtn");
+
+function maafin() {
+    teks.innerHTML = "YEEAAAY 😭❤️<br>Makasih ya udah maafin!!<br>Selamat berburu THR 💸";
+}
+
+function gakMaafin() {
+    noClick++;
+
+    if (noClick === 1) {
+        teks.innerHTML = "Yakin nih? 🥲 aku sedih loh...";
+        moveButton();
+    } else if (noClick === 2) {
+        teks.innerHTML = "Ih masa nggak sih 😭 coba pikir lagi deh...";
+        moveButton();
+    } else if (noClick === 3) {
+        teks.innerHTML = "<h1>Bulan Ramadhan harus memaafkan satu sama lain</h1>";
+        setTimeout(() => {
+            teks.innerHTML = "Masih nggak mau maafin juga? 😤";
+        }, 2000);
+        moveButton();
+    } else {
+        teks.innerHTML = "Ya kan harusnya dimaafin 😏 ayo dong...";
+        moveButton();
+    }
+}
+
+function moveButton() {
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 50);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+/* ketupat jatuh */
+function createKetupat() {
+    let k = document.createElement("img");
+    k.src = "https://i.imgur.com/qSoOfaJ.jpg";
+    k.classList.add("ketupat");
+
+    k.style.left = Math.random() * window.innerWidth + "px";
+    k.style.animationDuration = (3 + Math.random() * 5) + "s";
+
+    document.body.appendChild(k);
+
+    setTimeout(() => {
+        k.remove();
+    }, 8000);
+}
+
+setInterval(createKetupat, 500);
+</script>
+
+</body>
+</html>
